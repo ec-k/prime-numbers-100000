@@ -3,6 +3,9 @@
 #include <string>
 #include <sstream>
 #include <algorithm>
+
+#include <fstream>
+
 using namespace std;
 
 vector<bool> eratosthenes(int n){
@@ -17,13 +20,20 @@ vector<bool> eratosthenes(int n){
     return is_prime;
 }
 
+
 int main()
 {
     // Get input.
-    string s;
-    getline(cin, s);
-    stringstream ss(s);
+    cout << "Write a file name: ";
+    string file_name;
+    cin >> file_name;
+    string input = "";
+    ifstream ifs(file_name);
+    getline(ifs, input);
+
     vector<int> n;
+    string s = "";
+    stringstream ss(input);
     while (getline(ss, s, ' '))
     {
         n.push_back(stoi(s));
@@ -42,6 +52,7 @@ int main()
     // Check whether inputs cover all prime numbers each of that is less than 100,000.
     sort(n.begin(), n.end());
     sort(prime_numbers.begin(), prime_numbers.end());
+
     if(n.size()!=prime_numbers.size()){
         cout << "Incorrect." << endl;
         return 0;
